@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import PropTypes from 'prop-types';
 
-const BookList = () => {
+const BookListContent = () => {
   return(
     <div>
       <p>This is the book list item.</p>
@@ -9,8 +9,8 @@ const BookList = () => {
   );
 };
 
-BookList.propTypes = {
+BookListContent.propTypes = {
 
 };
 
-export default BookList;
+export default BookListContent;
