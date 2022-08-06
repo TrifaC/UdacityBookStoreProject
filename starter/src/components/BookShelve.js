@@ -12,6 +12,9 @@ const BookShelve = ({ bookShelfName, books }) => {
         <ol className="books-grid">
           {books.map((book) => (
             <BookShelveElement
+              key={book.id}
+              bookID={book.id}
+              bookShelf={books.shelf}
               bookCoverImageUrl={book.imageLinks.thumbnail}
               bookTitle={book.title}
               bookAuthors={book.authors}

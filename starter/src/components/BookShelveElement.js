@@ -1,10 +1,16 @@
-import React, {useState} from "react";
-import PropTypes from 'prop-types';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 import BookShelfChanger from "./BookShelfChanger";
 
-const BookShelveElement = ({bookCoverImageUrl, bookTitle, bookAuthors}) => {
-  return(
+const BookShelveElement = ({
+  bookID,
+  bookShelf,
+  bookCoverImageUrl,
+  bookTitle,
+  bookAuthors,
+}) => {
+  return (
     <li>
       <div className="book">
         <div className="book-top">
@@ -13,13 +19,17 @@ const BookShelveElement = ({bookCoverImageUrl, bookTitle, bookAuthors}) => {
             style={{
               width: 128,
               height: 193,
-              backgroundImage:
-                `url("${bookCoverImageUrl}")`,
+              backgroundImage: `url("${bookCoverImageUrl}")`,
             }}
           ></div>
-          <BookShelfChanger/>
+          <BookShelfChanger bookShelf={bookShelf} />
         </div>
         <div className="book-title">{bookTitle}</div>
+        {bookAuthors.map((author) => (
+          <div key={author} className="book-authors">
+            {author}
+          </div>
+        ))}
       </div>
     </li>
   );
@@ -28,7 +38,7 @@ const BookShelveElement = ({bookCoverImageUrl, bookTitle, bookAuthors}) => {
 BookShelveElement.propTypes = {
   bookCoverImageUrl: PropTypes.string.isRequired,
   bookTitle: PropTypes.string.isRequired,
-  bookAuthors: PropTypes.array.isRequired
+  bookAuthors: PropTypes.array.isRequired,
 };
 
 export default BookShelveElement;
