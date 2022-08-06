@@ -20,7 +20,6 @@ const BookShelveElement = ({bookCoverImageUrl, bookTitle, bookAuthors}) => {
           <BookShelfChanger/>
         </div>
         <div className="book-title">{bookTitle}</div>
-        <div className="book-authors">{bookAuthors}</div>
       </div>
     </li>
   );
@@ -29,7 +28,7 @@ const BookShelveElement = ({bookCoverImageUrl, bookTitle, bookAuthors}) => {
 BookShelveElement.propTypes = {
   bookCoverImageUrl: PropTypes.string.isRequired,
   bookTitle: PropTypes.string.isRequired,
-  bookAuthors: PropTypes.string.isRequired
+  bookAuthors: PropTypes.array.isRequired
 };
 
 export default BookShelveElement;
