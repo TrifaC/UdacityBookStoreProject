@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import BookShelveElement from "./BookShelveElement";
 
 const BookShelve = ({ bookShelfName, books }) => {
-  console.log(books);
   return (
     <div className="bookshelf">
       <h2 className="bookshelf-title">{bookShelfName}</h2>
@@ -14,7 +13,7 @@ const BookShelve = ({ bookShelfName, books }) => {
             <BookShelveElement
               key={book.id}
               bookID={book.id}
-              bookShelf={books.shelf}
+              bookShelf={book.shelf}
               bookCoverImageUrl={book.imageLinks.thumbnail}
               bookTitle={book.title}
               bookAuthors={book.authors}
