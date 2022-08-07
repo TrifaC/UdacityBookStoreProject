@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 import BookShelve from "../components/BookShelve";
-import BookShelveElement from "../components/BookShelveElement";
 
 import * as BooksAPI from "../apis/BooksAPI";
 
