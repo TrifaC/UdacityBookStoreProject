@@ -20,6 +20,7 @@ const SHELF_ARRAY = [
 
 const MainScreen = () => {
   const [books, setBooks] = useState([]);
+  const [update, setUpdate] = useState([]);
 
   const getBooksFromSpecificShelf = (shelfName) => {
     return (
@@ -35,13 +36,12 @@ const MainScreen = () => {
       setBooks(res);
     };
     getBooksFromServer();
-  }, []);
+  }, [update]);
 
   const updateBookShelf = async (bookId, newShelf) => {
-    console.log(newShelf);
-    console.log(bookId)
+    const bookToBeUpdated = books.filter((book) => (book.id === bookId))
     const res = await BooksAPI.update({id: bookId}, newShelf);
-    console.log(res)
+    setUpdate(res)
   };
 
   return (
