@@ -12,6 +12,12 @@ const WANT_TO_READ_TITLE = "Want To Read";
 const READ_KEY = "read";
 const READ_TITLE = "Read";
 
+const SHELF_ARRAY = [
+  {title: CURRENTLU_READING_TITLE, key: CURRENTLY_READING_SHELF_KEY},
+  {title: WANT_TO_READ_TITLE, key: WANT_TO_READ_SHELF_KEY},
+  {title: READ_TITLE, key: READ_KEY}
+]
+
 const MainScreen = () => {
   const [books, setBooks] = useState([]);
 
@@ -31,6 +37,13 @@ const MainScreen = () => {
     getBooksFromServer();
   }, []);
 
+  const updateBookShelf = async (bookId, newShelf) => {
+    console.log(newShelf);
+    console.log(bookId)
+    const res = await BooksAPI.update({id: bookId}, newShelf);
+    console.log(res)
+  };
+
   return (
     <div className="app">
       <div className="list-books">
@@ -39,18 +52,14 @@ const MainScreen = () => {
         </div>
         <div className="list-books-content">
           <div>
-            <BookShelve
-              bookShelfName={CURRENTLU_READING_TITLE}
-              books={getBooksFromSpecificShelf(CURRENTLY_READING_SHELF_KEY)}
-            />
-            <BookShelve
-              bookShelfName={WANT_TO_READ_TITLE}
-              books={getBooksFromSpecificShelf(WANT_TO_READ_SHELF_KEY)}
-            />
-            <BookShelve
-              bookShelfName={READ_TITLE}
-              books={getBooksFromSpecificShelf(READ_KEY)}
-            />
+            {SHELF_ARRAY.map((shelf) => (
+              <BookShelve
+                key={shelf.title}
+                bookShelfName={shelf.title}
+                books={getBooksFromSpecificShelf(shelf.key)}
+                updateBookShelf={(bookId, newShelf) => {updateBookShelf(bookId, newShelf)}}
+              />
+            ))}
           </div>
         </div>
         <div className="open-search">

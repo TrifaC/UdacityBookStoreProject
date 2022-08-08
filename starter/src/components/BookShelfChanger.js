@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from 'prop-types';
 
-const BookShelfChanger = ({bookShelf, onBookShelfChanged}) => {
+const BookShelfChanger = ({bookID, bookShelf, onChange}) => {
 
   const [ selectedOption, setSelectedOption ] = useState("")
 
   // Handle the change in the select tag.
   const onSelectChange = (value) => {
     setSelectedOption(value);
-    onBookShelfChanged(value);
+    onChange(bookID ,value);
   };
 
   // Set the book shelf selection when the book shelf value is available.
@@ -30,8 +30,9 @@ const BookShelfChanger = ({bookShelf, onBookShelfChanged}) => {
 };
 
 BookShelfChanger.propTypes = {
+  bookID: PropTypes.string.isRequired,
   bookShelf: PropTypes.string.isRequired,
-  onBookShelfChanged: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default BookShelfChanger;

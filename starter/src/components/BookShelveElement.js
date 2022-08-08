@@ -11,13 +11,8 @@ const BookShelveElement = ({
   bookCoverImageUrl,
   bookTitle,
   bookAuthors,
+  updateBookShelf
 }) => {
-
-  const onBookShelfChanged = async ({newShelf}) => {
-    console.log(newShelf)
-    const res = await BooksAPI.update({id: bookID}, newShelf);
-    console.log(res)
-  };
 
   return (
     <li>
@@ -31,7 +26,10 @@ const BookShelveElement = ({
               backgroundImage: `url("${bookCoverImageUrl}")`,
             }}
           ></div>
-          <BookShelfChanger bookShelf={bookShelf} onBookShelfChanged={(value) => onBookShelfChanged({newShelf: value})}  />
+          <BookShelfChanger 
+            bookID={bookID}
+            bookShelf={bookShelf} 
+            onChange={updateBookShelf}  />
         </div>
         <div className="book-title">{bookTitle}</div>
         {bookAuthors.map((author) => (
@@ -50,6 +48,7 @@ BookShelveElement.propTypes = {
   bookCoverImageUrl: PropTypes.string.isRequired,
   bookTitle: PropTypes.string.isRequired,
   bookAuthors: PropTypes.array.isRequired,
+  updateBookShelf: PropTypes.func.isRequired
 };
 
 export default BookShelveElement;
