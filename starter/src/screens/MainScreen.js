@@ -4,19 +4,8 @@ import { Link } from "react-router-dom";
 import BookShelve from "../components/BookShelve";
 
 import * as BooksAPI from "../apis/BooksAPI";
+import * as Constants from "../utilities/Constants";
 
-const CURRENTLY_READING_SHELF_KEY = "currentlyReading";
-const CURRENTLU_READING_TITLE = "Currently Reading";
-const WANT_TO_READ_SHELF_KEY = "wantToRead";
-const WANT_TO_READ_TITLE = "Want To Read";
-const READ_KEY = "read";
-const READ_TITLE = "Read";
-
-const SHELF_ARRAY = [
-  {title: CURRENTLU_READING_TITLE, key: CURRENTLY_READING_SHELF_KEY},
-  {title: WANT_TO_READ_TITLE, key: WANT_TO_READ_SHELF_KEY},
-  {title: READ_TITLE, key: READ_KEY}
-]
 
 const MainScreen = () => {
   const [books, setBooks] = useState([]);
@@ -28,6 +17,12 @@ const MainScreen = () => {
     );
   }
 
+  const updateBookShelf = async (bookId, newShelf) => {
+    // const bookToBeUpdated = books.filter((book) => (book.id === bookId))
+    const res = await BooksAPI.update({id: bookId}, newShelf);
+    setUpdate(res)
+  };
+
   useEffect(() => {
     const getBooksFromServer = async () => {
       // Get All Book From Server.
@@ -38,12 +33,6 @@ const MainScreen = () => {
     getBooksFromServer();
   }, [update]);
 
-  const updateBookShelf = async (bookId, newShelf) => {
-    const bookToBeUpdated = books.filter((book) => (book.id === bookId))
-    const res = await BooksAPI.update({id: bookId}, newShelf);
-    setUpdate(res)
-  };
-
   return (
     <div className="app">
       <div className="list-books">
@@ -52,7 +41,7 @@ const MainScreen = () => {
         </div>
         <div className="list-books-content">
           <div>
-            {SHELF_ARRAY.map((shelf) => (
+            {Constants.SHELF_ARRAY.map((shelf) => (
               <BookShelve
                 key={shelf.title}
                 bookShelfName={shelf.title}

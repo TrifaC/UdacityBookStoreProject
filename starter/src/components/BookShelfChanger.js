@@ -19,7 +19,7 @@ const BookShelfChanger = ({bookID, bookShelf, onChange}) => {
   return(
     <div className="book-shelf-changer">
       <select value={selectedOption} onChange={(event)=>{onSelectChange(event.target.value)}}>
-        <option value="none" disabled>Move to...</option>
+        <option value="title" disabled>Move to...</option>
         <option value="currentlyReading">Currently Reading</option>                                
         <option value="wantToRead">Want to Read</option>
         <option value="read">Read</option>

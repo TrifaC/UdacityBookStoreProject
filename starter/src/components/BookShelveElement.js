@@ -3,8 +3,6 @@ import PropTypes from "prop-types";
 
 import BookShelfChanger from "./BookShelfChanger";
 
-import * as BooksAPI from "../apis/BooksAPI";
-
 const BookShelveElement = ({
   bookID,
   bookShelf,
@@ -13,6 +11,10 @@ const BookShelveElement = ({
   bookAuthors,
   updateBookShelf
 }) => {
+
+  const checkAndReturnBookShelfValue = () => {
+    return (bookShelf ? bookShelf : "none");
+  }
 
   return (
     <li>
@@ -28,7 +30,7 @@ const BookShelveElement = ({
           ></div>
           <BookShelfChanger 
             bookID={bookID}
-            bookShelf={bookShelf} 
+            bookShelf={checkAndReturnBookShelfValue()} 
             onChange={updateBookShelf}  />
         </div>
         <div className="book-title">{bookTitle}</div>
@@ -44,7 +46,7 @@ const BookShelveElement = ({
 
 BookShelveElement.propTypes = {
   bookID: PropTypes.string.isRequired,
-  bookShelf: PropTypes.string.isRequired,
+  bookShelf: PropTypes.string,
   bookCoverImageUrl: PropTypes.string.isRequired,
   bookTitle: PropTypes.string.isRequired,
   bookAuthors: PropTypes.array.isRequired,
