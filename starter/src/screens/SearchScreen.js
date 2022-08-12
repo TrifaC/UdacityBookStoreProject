@@ -1,24 +1,21 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 
 import SearchBar from "../components/SearchBar";
 import SearchResult from "../components/SearchResult";
 
 import * as BooksAPI from "../apis/BooksAPI";
-import * as Constants from "../utilities/Constants";
-import { createBrowserHistory } from "history";
 
 const SearchScreen = () => {
 
 
-//------------------------------------- Use State Declare ---------------------
+//------------------------------------- Use State Declare -----------------------------------------
 
 
   const [query, setQuery] = useState("");
   const [searchResult, setSearchResult] = useState([]);
 
 
-//------------------------------------- Update Function Via API ---------------
+//------------------------------------- Update Function Via API -----------------------------------
 
 
   const updateBookShelf = async (bookId, newShelf) => {
@@ -28,11 +25,15 @@ const SearchScreen = () => {
 
   const searchBookFromServer = async (query, maxResults) => {
     const result = await BooksAPI.search(query, maxResults);
-    setSearchResult(result);
+    if ('error' in result){
+      setSearchResult([]);
+    } else {
+      setSearchResult(result);
+    }
   }
 
 
-//------------------------------------- State Update Functions ----------------
+//------------------------------------- State Update Functions ------------------------------------
 
 
   const updateQuery = (newQuery) => {
@@ -42,7 +43,7 @@ const SearchScreen = () => {
       : setSearchResult([])
   }
 
-//------------------------------------- Return --------------------------------
+//------------------------------------- Return ----------------------------------------------------
 
 
   return(

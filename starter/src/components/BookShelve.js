@@ -12,11 +12,7 @@ const BookShelve = ({ bookShelfName, books, updateBookShelf }) => {
           {books.map((book) => (
             <BookShelveElement
               key={book.id}
-              bookID={book.id}
-              bookShelf={book.shelf}
-              bookCoverImageUrl={book.imageLinks.thumbnail}
-              bookTitle={book.title}
-              bookAuthors={book.authors}
+              book={book}
               updateBookShelf={updateBookShelf}
             />
           ))}

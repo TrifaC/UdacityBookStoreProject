@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from 'prop-types';
 
 import BookShelveElement from "./BookShelveElement";
@@ -11,11 +11,7 @@ const SearchResult = ({ books, updateBookShelf }) => {
         {books.map((book) => (
           <BookShelveElement
               key={book.id}
-              bookID={book.id}
-              bookShelf={book.shelf}
-              bookCoverImageUrl={book.imageLinks.thumbnail}
-              bookTitle={book.title}
-              bookAuthors={book.authors}
+              book={book}
               updateBookShelf={updateBookShelf}
             />
         ))}

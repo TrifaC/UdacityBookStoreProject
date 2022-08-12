@@ -1,20 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 import BookShelfChanger from "./BookShelfChanger";
 
-const BookShelveElement = ({
-  bookID,
-  bookShelf,
-  bookCoverImageUrl,
-  bookTitle,
-  bookAuthors,
-  updateBookShelf
-}) => {
+const BookShelveElement = ({ book, updateBookShelf }) => {
 
-  const checkAndReturnBookShelfValue = () => {
-    return (bookShelf ? bookShelf : "none");
-  }
+  const [bookShelf, setBookShelf] = useState("");
+  const [bookCoverImageUrl, setBookCoverImageUrl] = useState("");
+  const [bookTitle, setBookTitle] = useState("");
+  const [bookAuthors, setBookAuthors] = useState([]);
+
+  useEffect(() => {
+    const checkBooksKeyAvailable = () => {
+      book.shelf 
+        ? setBookShelf(book.shelf) 
+        : setBookShelf("none");
+      book.imageLinks.thumbnail 
+        ? setBookCoverImageUrl(book.imageLinks.thumbnail) 
+        : setBookCoverImageUrl("");
+      book.title 
+        ? setBookTitle(book.title) 
+        : setBookTitle("");
+      book.authors 
+        ? setBookAuthors(book.authors) 
+        : setBookAuthors([]);
+    };
+    checkBooksKeyAvailable();
+  }, []);
 
   return (
     <li>
@@ -29,8 +41,8 @@ const BookShelveElement = ({
             }}
           ></div>
           <BookShelfChanger 
-            bookID={bookID}
-            bookShelf={checkAndReturnBookShelfValue()} 
+            bookID={book.id}
+            bookShelf={bookShelf} 
             onChange={updateBookShelf}  />
         </div>
         <div className="book-title">{bookTitle}</div>
@@ -45,11 +57,7 @@ const BookShelveElement = ({
 };
 
 BookShelveElement.propTypes = {
-  bookID: PropTypes.string.isRequired,
-  bookShelf: PropTypes.string,
-  bookCoverImageUrl: PropTypes.string.isRequired,
-  bookTitle: PropTypes.string.isRequired,
-  bookAuthors: PropTypes.array.isRequired,
+  book: PropTypes.object.isRequired,
   updateBookShelf: PropTypes.func.isRequired
 };
 
