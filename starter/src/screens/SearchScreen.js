@@ -17,12 +17,12 @@ const SearchScreen = () => {
 
 //------------------------------------- Shelf Update Functions ------------------------------------
 
-
+  // Update the book shelf when changing the bookShelfChanger.
   const updateBooksShelfByUser = async (bookId, newShelf) => {
-    // const bookToBeUpdated = books.filter((book) => (book.id === bookId))
     const res = await BooksAPI.update({id: bookId}, newShelf);
   };
 
+  // Get the book shelf of the search result from our local data.
   const getShelfNameOfLocalBook = ({ resultBookID }) => {
     const targetElment = localBooks.find((localBook) => localBook.id === resultBookID)
     if (targetElment) {
@@ -31,6 +31,7 @@ const SearchScreen = () => {
     return null;
   }
 
+  // Update the book shelf value for the search resutl.
   const updateBooksShelfFromLocal = (result) => {
     result.map((book) => {
       const shelfName = getShelfNameOfLocalBook({resultBookID: book.id})
@@ -45,8 +46,8 @@ const SearchScreen = () => {
 //------------------------------------- Query Update Functions ------------------------------------
 
 
+  // Update the search query.
   const updateQuery = (searchQuery) => {
-    console.log(searchQuery)
     setQuery(searchQuery.trim());
   }
 

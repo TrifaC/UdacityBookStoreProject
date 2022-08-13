@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 
 import BookShelve from "../components/BookShelve";
+import BookAddingButton from "../components/BookAddingButton";
 
 import * as BooksAPI from "../apis/BooksAPI";
 import * as Constants from "../utilities/Constants";
@@ -27,6 +27,10 @@ const MainScreen = () => {
     const res = await BooksAPI.update({id: bookId}, newShelf);
     setUpdate(res)
   };
+
+
+//------------------------------------- useEffect Functions ---------------------------------------
+
 
   useEffect(() => {
     const getBooksFromServer = async () => {
@@ -60,9 +64,7 @@ const MainScreen = () => {
             ))}
           </div>
         </div>
-        <div className="open-search">
-          <Link to="/search">Add a book</Link>
-        </div>
+        <BookAddingButton/>
       </div>
     </div>
   );

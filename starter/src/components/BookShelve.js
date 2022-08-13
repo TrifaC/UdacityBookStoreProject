@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import BookShelveElement from "./BookShelveElement";
 
 const BookShelve = ({ bookShelfName, books, updateBookShelf }) => {
+
   return (
     <div className="bookshelf">
       <h2 className="bookshelf-title">{bookShelfName}</h2>
@@ -20,6 +21,7 @@ const BookShelve = ({ bookShelfName, books, updateBookShelf }) => {
       </div>
     </div>
   );
+  
 };
 
 BookShelve.propTypes = {
