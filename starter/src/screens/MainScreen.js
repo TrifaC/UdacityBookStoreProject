@@ -8,6 +8,11 @@ import * as Constants from "../utilities/Constants";
 
 
 const MainScreen = () => {
+
+
+//------------------------------------- Use State Declare -----------------------------------------
+
+
   const [books, setBooks] = useState([]);
   const [update, setUpdate] = useState([]);
 
@@ -32,6 +37,10 @@ const MainScreen = () => {
     };
     getBooksFromServer();
   }, [update]);
+
+
+//------------------------------------- Return Function -------------------------------------------
+
 
   return (
     <div className="app">

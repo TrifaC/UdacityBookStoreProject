@@ -6,18 +6,21 @@ import BookShelfChanger from "./BookShelfChanger";
 const BookShelveElement = ({ book, updateBookShelf }) => {
 
   const [bookShelf, setBookShelf] = useState("");
-  const [bookCoverImageUrl, setBookCoverImageUrl] = useState("");
   const [bookTitle, setBookTitle] = useState("");
   const [bookAuthors, setBookAuthors] = useState([]);
+  const [bookCoverStyle, setBookCoverStyle] = useState({});
+
+  const checkBooksCoverAvailableAndSetStyle = () => {
+    book.imageLinks
+      ? setBookCoverStyle({ width: 128, height: 193, backgroundImage: `url("${book.imageLinks.thumbnail}")` })
+      : setBookCoverStyle({});
+  }
 
   useEffect(() => {
     const checkBooksKeyAvailable = () => {
       book.shelf 
         ? setBookShelf(book.shelf) 
         : setBookShelf("none");
-      book.imageLinks.thumbnail 
-        ? setBookCoverImageUrl(book.imageLinks.thumbnail) 
-        : setBookCoverImageUrl("");
       book.title 
         ? setBookTitle(book.title) 
         : setBookTitle("");
@@ -26,6 +29,7 @@ const BookShelveElement = ({ book, updateBookShelf }) => {
         : setBookAuthors([]);
     };
     checkBooksKeyAvailable();
+    checkBooksCoverAvailableAndSetStyle();
   }, []);
 
   return (
@@ -34,11 +38,7 @@ const BookShelveElement = ({ book, updateBookShelf }) => {
         <div className="book-top">
           <div
             className="book-cover"
-            style={{
-              width: 128,
-              height: 193,
-              backgroundImage: `url("${bookCoverImageUrl}")`,
-            }}
+            style={bookCoverStyle}
           ></div>
           <BookShelfChanger 
             bookID={book.id}

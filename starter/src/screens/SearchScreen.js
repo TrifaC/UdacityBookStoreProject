@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import SearchBar from "../components/SearchBar";
 import SearchResult from "../components/SearchResult";
@@ -10,38 +10,76 @@ const SearchScreen = () => {
 
 //------------------------------------- Use State Declare -----------------------------------------
 
-
+  const [localBooks, setLocalBooks] = useState([]);
   const [query, setQuery] = useState("");
   const [searchResult, setSearchResult] = useState([]);
 
 
-//------------------------------------- Update Function Via API -----------------------------------
+//------------------------------------- Shelf Update Functions ------------------------------------
 
 
-  const updateBookShelf = async (bookId, newShelf) => {
+  const updateBooksShelfByUser = async (bookId, newShelf) => {
     // const bookToBeUpdated = books.filter((book) => (book.id === bookId))
     const res = await BooksAPI.update({id: bookId}, newShelf);
   };
 
-  const searchBookFromServer = async (query, maxResults) => {
-    const result = await BooksAPI.search(query, maxResults);
-    if ('error' in result){
-      setSearchResult([]);
-    } else {
-      setSearchResult(result);
+  const getShelfNameOfLocalBook = ({ resultBookID }) => {
+    const targetElment = localBooks.find((localBook) => localBook.id === resultBookID)
+    if (targetElment) {
+      return targetElment.shelf;
     }
+    return null;
+  }
+
+  const updateBooksShelfFromLocal = (result) => {
+    result.map((book) => {
+      const shelfName = getShelfNameOfLocalBook({resultBookID: book.id})
+      if (shelfName) {
+        book.shelf = shelfName
+      }
+    });
+    setSearchResult(result);
+  };
+
+
+//------------------------------------- Query Update Functions ------------------------------------
+
+
+  const updateQuery = (searchQuery) => {
+    console.log(searchQuery)
+    setQuery(searchQuery.trim());
   }
 
 
-//------------------------------------- State Update Functions ------------------------------------
+//------------------------------------- UseEffect -------------------------------------------------
 
 
-  const updateQuery = (newQuery) => {
-    setQuery(newQuery.trim());
-    newQuery.length !== 0 
-      ? searchBookFromServer(newQuery, 20)
-      : setSearchResult([])
-  }
+  // Update the search result when the search query is changed.
+  useEffect(() => {
+    const searchBookFromServer = async (currentQuery, maxResults) => {
+      const result = await BooksAPI.search(currentQuery, maxResults);
+      if ('error' in result){
+        setSearchResult([]);
+      } else {
+        updateBooksShelfFromLocal(result);
+      }
+    }
+
+    query.length > 1 
+    ? searchBookFromServer(query, 20)
+    : setSearchResult([])
+  }, [query]);
+
+  // Get the local books from server.
+  useEffect(()=>{
+    const getBooksFromServer = async () => {
+      // Get All Book From Server.
+      const res = await BooksAPI.getAll();
+      setLocalBooks(res);
+    };
+    getBooksFromServer();
+  }, []);
+
 
 //------------------------------------- Return ----------------------------------------------------
 
@@ -55,7 +93,7 @@ const SearchScreen = () => {
         />
         <SearchResult
           books={searchResult}
-          updateBookShelf={(bookId, newShelf) => {updateBookShelf(bookId, newShelf)}}
+          updateBookShelf={(bookId, newShelf) => {updateBooksShelfByUser(bookId, newShelf)}}
         />
       </div>
     </div>
