@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const BookShelfChanger = ({bookID, bookShelf, onChange}) => {
 
-  const [ selectedOption, setSelectedOption ] = useState("")
+  const [ selectedOption, setSelectedOption ] = useState('')
 
   // Handle the change in the select tag.
   const onSelectChange = (value) => {

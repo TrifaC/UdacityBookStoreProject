@@ -11,7 +11,7 @@ const SearchScreen = () => {
 //------------------------------------- Use State Declare -----------------------------------------
 
   const [localBooks, setLocalBooks] = useState([]);
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
   const [searchResult, setSearchResult] = useState([]);
 
 

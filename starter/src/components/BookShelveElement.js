@@ -9,8 +9,8 @@ const BookShelveElement = ({ book, updateBookShelf }) => {
 //------------------------------------- useState --------------------------------------------------
 
 
-  const [bookShelf, setBookShelf] = useState("");
-  const [bookTitle, setBookTitle] = useState("");
+  const [bookShelf, setBookShelf] = useState('');
+  const [bookTitle, setBookTitle] = useState('');
   const [bookAuthors, setBookAuthors] = useState([]);
   const [bookCoverStyle, setBookCoverStyle] = useState({});
 
@@ -19,13 +19,12 @@ const BookShelveElement = ({ book, updateBookShelf }) => {
 
 
   const checkBooksCoverAvailableAndSetStyle = () => {
-    const valideBookCoverStyle = {
-      width: 128,
-      height: 193,
-      backgroundImage: `url("${book.imageLinks.thumbnail}")`
-    }
     book.imageLinks
-      ? setBookCoverStyle(valideBookCoverStyle)
+      ? setBookCoverStyle({
+          width: 128,
+          height: 193,
+          backgroundImage: `url("${book.imageLinks.thumbnail}")`
+        })
       : setBookCoverStyle({});
   }
 
