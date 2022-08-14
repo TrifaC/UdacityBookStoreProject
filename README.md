@@ -8,6 +8,7 @@ Of course, you are free to start this project from scratch if you wish! Just be 
 
 To get started developing right away:
 
+- go to "starter" folder
 - install all project dependencies with `npm install`
 - start the development server with `npm start`
 
@@ -92,3 +93,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
 
 For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Note
+
+- On search page, the book without the cover page only show the white background.
