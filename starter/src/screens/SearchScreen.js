@@ -48,7 +48,8 @@ const SearchScreen = () => {
 
   // Update the search query.
   const updateQuery = (searchQuery) => {
-    setQuery(searchQuery.trim());
+    // console.log(searchQuery)
+    setQuery(searchQuery);
   }
 
 
